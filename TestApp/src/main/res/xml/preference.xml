@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Multiline Preferences">
+        <com.malakhv.preference.MultilineCheckBox
+            android:key="key_multiline_checkbox_1"
+            android:title="This is a long title for multiline checkbox preference"
+            android:summary="This is a long summary for multiline checkbox preference"
+            android:persistent="true" />
+
+        <com.malakhv.preference.MultilineCheckBox
+            android:key="key_multiline_checkbox_2"
+            android:title="This is a title\nfor multiline checkbox preference"
+            android:summary="This is a long summary for multiline checkbox preference"
+            android:persistent="true" />
+
+        <com.malakhv.preference.MultilineSwitch
+            android:key="key_multiline_switch_1"
+            android:title="This is a long title for multiline switch preference"
+            android:summary="This is a long summary for multiline switch preference"
+            android:persistent="true" />
+
+        <com.malakhv.preference.MultilineSwitch
+            android:key="key_multiline_switch_2"
+            android:title="This is a title\nfor multiline switch preference"
+            android:summary="This is a long summary for multiline switch preference"
+            android:persistent="true" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
