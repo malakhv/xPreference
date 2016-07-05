@@ -20,31 +20,30 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.preference.Preference;
-import android.preference.SwitchPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
 /**
- * Class implements {@link SwitchPreference} without limiting the number of lines for preference's
- * title and summary.
+ * Class implements {@link Preference} without limiting the number of lines for preference's title
+ * and summary.
  *
  * @author Mikhail.Malakhov [malakhv@live.ru|https://github.com/malakhv]
  * */
 @SuppressWarnings("unused")
-public class MultilineSwitch extends SwitchPreference {
+public class MultilinePreference extends Preference {
 
     /**
      * Simple constructor to use when creating a preference from code. Just call super(), in this
      * implementation.
      * */
-    public MultilineSwitch(Context context) { super(context);}
+    public MultilinePreference(Context context) { super(context);}
 
     /**
      * Constructor that is called when inflating a preference from XML. Just call super(), in this
      * implementation.
      * */
-    public MultilineSwitch(Context context, AttributeSet attrs) {
+    public MultilinePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -52,7 +51,7 @@ public class MultilineSwitch extends SwitchPreference {
      * Perform inflation from XML and apply a class-specific base style from a theme attribute.
      * Just call super(), in this implementation.
      * */
-    public MultilineSwitch(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MultilinePreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -61,7 +60,7 @@ public class MultilineSwitch extends SwitchPreference {
      * style resource. Just call super(), in this implementation.
      * */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public MultilineSwitch(Context context, AttributeSet attrs, int defStyleAttr, int
+    public MultilinePreference(Context context, AttributeSet attrs, int defStyleAttr, int
             defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
@@ -74,7 +73,30 @@ public class MultilineSwitch extends SwitchPreference {
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
-        MultilinePreference.setMultilineTitle(view);
-        MultilinePreference.setMultilineSummary(view);
+        setMultilineTitle(view);
+        setMultilineSummary(view);
     }
+
+    /**
+     * Disable the single line limitation for a preference's title.
+     * */
+    static void setMultilineTitle(View view) { // package access
+        if (view == null) return;
+        final TextView v = (TextView) view.findViewById(android.R.id.title);
+        if (v != null) {
+            v.setSingleLine(false);
+        }
+    }
+
+    /**
+     * Disable the number of lines limitation for a preference's summary.
+     * */
+    static void setMultilineSummary(View view) {
+        if (view == null) return;
+        final TextView v = (TextView) view.findViewById(android.R.id.summary);
+        if (v != null) {
+            v.setMaxLines(Integer.MAX_VALUE);
+        }
+    }
+
 }

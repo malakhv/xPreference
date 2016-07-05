@@ -20,12 +20,15 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.preference.CheckBoxPreference;
+import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 
 /**
- * Class implements {@link CheckBoxPreference} with multiline title.
+ * Class implements {@link CheckBoxPreference} without limiting the number of lines for
+ * preference's title and summary.
+ *
  * @author Mikhail.Malakhov [malakhv@live.ru|https://github.com/malakhv]
  * */
 @SuppressWarnings("unused")
@@ -65,14 +68,13 @@ public class MultilineCheckBox extends CheckBoxPreference {
 
     /**
      * Binds the created View to the data for this Preference. In this implementation, disabled the
-     * single line limitation for preference's title.
+     * single line limitation for a preference's title and the number of lines limitation for a
+     * preference's summary.
      * */
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
-        TextView textView = (TextView) view.findViewById(android.R.id.title);
-        if (textView != null) {
-            textView.setSingleLine(false);
-        }
+        MultilinePreference.setMultilineTitle(view);
+        MultilinePreference.setMultilineSummary(view);
     }
 }
