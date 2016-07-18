@@ -27,4 +27,13 @@
             android:persistent="true" />
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="Dialog Preferences">
+        <com.malakhv.libs.preference.test.TestDialogFragmentPref
+            android:title="Dialog Fragment Preference"
+            android:summary="Any summary for this preference" />
+        <com.malakhv.preference.SeekBarDialog
+            android:title="Seek Bar Dialog"
+            android:progress="75"/>
+    </PreferenceCategory>
+
 </PreferenceScreen>
