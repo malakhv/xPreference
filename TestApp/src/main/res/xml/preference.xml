@@ -25,14 +25,47 @@
             android:title="This is a title\nfor multiline switch preference"
             android:summary="This is a long summary for multiline switch preference"
             android:persistent="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Gravity test">
+        <com.malakhv.preference.MultilinePreference
+            android:key="key_multiline_0"
+            android:title="This is a title\nfor multiline preference"
+            android:summary="This is a long summary for multiline preference"
+            android:gravity="start"
+            android:persistent="true" />
+
+        <com.malakhv.preference.MultilinePreference
+            android:key="key_multiline_1"
+            android:title="This is a title\nfor multiline preference"
+            android:summary="This is a long summary for multiline preference"
+            android:gravity="center"
+            android:persistent="true" />
+
+        <com.malakhv.preference.MultilinePreference
+            android:key="key_multiline_2"
+            android:title="This is a title\nfor multiline preference"
+            android:summary="This is a long summary for multiline preference"
+            android:gravity="end"
+            android:persistent="true" />
+
+        <com.malakhv.preference.MultilinePreference
+            android:key="key_multiline_3"
+            android:summary="This is a long summary for multiline preference"
+            android:gravity="center"
+            android:persistent="true" />
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Dialog Preferences">
         <com.malakhv.libs.preference.test.TestDialogFragmentPref
+            android:key="test_dialog_fragment_pref_key"
             android:title="Dialog Fragment Preference"
             android:summary="Any summary for this preference" />
         <com.malakhv.preference.SeekBarDialog
             android:title="Seek Bar Dialog"
+            android:summary="The value is %s %%"
             android:progress="75"/>
     </PreferenceCategory>
 

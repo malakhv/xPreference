@@ -18,10 +18,13 @@ package com.malakhv.preference;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.preference.Preference;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
@@ -32,6 +35,10 @@ import android.widget.TextView;
  * */
 @SuppressWarnings("unused")
 public class MultilinePreference extends Preference {
+
+    /** The gravity of preference's title and summary. */
+    //TODO Right now, you can specify this parameter only in xml
+    private int mGravity = Gravity.NO_GRAVITY;
 
     /**
      * Simple constructor to use when creating a preference from code. Just call super(), in this
@@ -44,7 +51,7 @@ public class MultilinePreference extends Preference {
      * implementation.
      * */
     public MultilinePreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, android.R.attr.preferenceStyle);
     }
 
     /**
@@ -53,6 +60,7 @@ public class MultilinePreference extends Preference {
      * */
     public MultilinePreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initFromAttr(context, attrs, defStyleAttr, 0);
     }
 
     /**
@@ -63,6 +71,18 @@ public class MultilinePreference extends Preference {
     public MultilinePreference(Context context, AttributeSet attrs, int defStyleAttr, int
             defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        initFromAttr(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    /**
+     * Initialize this {@code preference} object.
+     * */
+    protected void initFromAttr(Context context, AttributeSet attrs, int defStyleAttr, int
+            defStyleRes) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Preference, defStyleAttr,
+                defStyleRes);
+        mGravity = a.getInt(R.styleable.Preference_android_gravity, mGravity);
+        a.recycle();
     }
 
     /**
@@ -75,6 +95,10 @@ public class MultilinePreference extends Preference {
         super.onBindView(view);
         setMultilineTitle(view);
         setMultilineSummary(view);
+        if (mGravity != Gravity.NO_GRAVITY) {
+            setTitleGravity(view, mGravity);
+            setSummaryGravity(view, mGravity);
+        }
     }
 
     /**
@@ -97,6 +121,35 @@ public class MultilinePreference extends Preference {
         if (v != null) {
             v.setMaxLines(Integer.MAX_VALUE);
         }
+    }
+
+    /**
+     * Sets the gravity for a preference's title.
+     * */
+    static void setTitleGravity(View view, int gravity) {
+        final TextView v = (TextView) view.findViewById(android.R.id.title);
+        if (v != null) {
+            setTextViewGravity(v, gravity);
+        }
+    }
+
+    /**
+     * Sets the gravity for a preference's summary.
+     * */
+    static void setSummaryGravity(View view, int gravity) {
+        final TextView v = (TextView) view.findViewById(android.R.id.summary);
+        if (v != null) {
+            setTextViewGravity(v, gravity);
+        }
+    }
+
+    /**
+     * Sets the gravity of the {@code TextView} into {@code Preference} layout.
+     * */
+    static void setTextViewGravity(TextView view, int gravity) {
+        if (view == null || view.getGravity() == gravity) return;
+        view.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+        view.setGravity(gravity);
     }
 
 }
