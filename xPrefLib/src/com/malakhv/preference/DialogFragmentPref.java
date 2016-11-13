@@ -33,6 +33,7 @@ import android.util.AttributeSet;
  * Class implements {@link Preference} with {@link DialogFragment}.
  * @author Mikhail.Malakhov [malakhv@live.ru|https://github.com/malakhv]
  * */
+//TODO Need to add more JavaDoc comments about preference key and dialog lifecycle
 @SuppressWarnings("unused")
 public abstract class DialogFragmentPref extends Preference {
 
@@ -57,8 +58,7 @@ public abstract class DialogFragmentPref extends Preference {
      * Perform inflation from XML and apply a class-specific base style from a theme attribute.
      * */
     public DialogFragmentPref(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, 0);
-        init(context);
+        super(context, attrs, defStyleAttr); init(context);
     }
 
     /**
@@ -68,14 +68,13 @@ public abstract class DialogFragmentPref extends Preference {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public DialogFragmentPref(Context context, AttributeSet attrs, int defStyleAttr,
             int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
+        super(context, attrs, defStyleAttr, defStyleRes); init(context);
     }
 
     /**
      * Initialize this {@code preference} object.
      * */
-    public void init(Context context) {
+    protected void init(Context context) {
         try {
             final Activity activity = (Activity) context;
             mFragmentManager = activity.getFragmentManager();
